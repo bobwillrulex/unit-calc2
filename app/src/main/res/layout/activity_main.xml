@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#101114"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/formulaInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="Enter expression (e.g. 12 mm + 11 cm)"
+            android:inputType="text"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#777777" />
+
+        <ImageButton
+            android:id="@+id/historyButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="History"
+            android:src="@android:drawable/ic_menu_recent_history"
+            app:tint="#FFFFFF" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="#7AF7AE"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnConvert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Convert" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Recent units"
+        android:textColor="#A8ABB5" />
+
+    <HorizontalScrollView
+        android:id="@+id/recentUnitsScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/recentUnitContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:tabIndicatorColor="#7AF7AE"
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextColor="#8E93A6">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calculator" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Length units" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volume units" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <LinearLayout
+        android:id="@+id/pageCalculator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="5">
+
+            <Button android:id="@+id/btn7" android:text="7" style="@style/CalcButton" />
+            <Button android:id="@+id/btn8" android:text="8" style="@style/CalcButton" />
+            <Button android:id="@+id/btn9" android:text="9" style="@style/CalcButton" />
+            <Button android:id="@+id/btnDiv" android:text="/" style="@style/CalcButton" />
+            <Button android:id="@+id/btnDel" android:text="DEL" style="@style/CalcButton" />
+
+            <Button android:id="@+id/btn4" android:text="4" style="@style/CalcButton" />
+            <Button android:id="@+id/btn5" android:text="5" style="@style/CalcButton" />
+            <Button android:id="@+id/btn6" android:text="6" style="@style/CalcButton" />
+            <Button android:id="@+id/btnMul" android:text="*" style="@style/CalcButton" />
+            <Button android:id="@+id/btnAc" android:text="AC" style="@style/CalcButton" />
+
+            <Button android:id="@+id/btn1" android:text="1" style="@style/CalcButton" />
+            <Button android:id="@+id/btn2" android:text="2" style="@style/CalcButton" />
+            <Button android:id="@+id/btn3" android:text="3" style="@style/CalcButton" />
+            <Button android:id="@+id/btnMinus" android:text="-" style="@style/CalcButton" />
+            <Button android:id="@+id/btnSqrt" android:text="√" style="@style/CalcButton" />
+
+            <Button android:id="@+id/btn0" android:text="0" style="@style/CalcButton" />
+            <Button android:id="@+id/btnDot" android:text="." style="@style/CalcButton" />
+            <Button android:id="@+id/btnPow" android:text="^" style="@style/CalcButton" />
+            <Button android:id="@+id/btnPlus" android:text="+" style="@style/CalcButton" />
+            <Button android:id="@+id/btnEq" android:text="=" style="@style/CalcButton" />
+
+            <Button android:id="@+id/btnLParen" android:text="(" style="@style/CalcButton" />
+            <Button android:id="@+id/btnRParen" android:text=")" style="@style/CalcButton" />
+            <Button android:id="@+id/btnAns" android:text="ANS" style="@style/CalcButton" />
+        </GridLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/pageLength"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Tap to insert length units" android:textColor="#A8ABB5" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <Button android:id="@+id/lenBtn0" style="@style/CalcButton" />
+            <Button android:id="@+id/lenBtn1" style="@style/CalcButton" />
+            <Button android:id="@+id/lenBtn2" style="@style/CalcButton" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <Button android:id="@+id/lenBtn3" style="@style/CalcButton" />
+            <Button android:id="@+id/lenBtn4" style="@style/CalcButton" />
+            <Button android:id="@+id/lenBtn5" style="@style/CalcButton" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/pageVolume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Tap to insert volume units" android:textColor="#A8ABB5" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <Button android:id="@+id/volBtn0" style="@style/CalcButton" />
+            <Button android:id="@+id/volBtn1" style="@style/CalcButton" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
