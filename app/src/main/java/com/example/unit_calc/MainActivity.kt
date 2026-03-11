@@ -8,9 +8,9 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.tabs.TabLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
     private val engine = UnitEngine()
@@ -27,19 +27,33 @@ class MainActivity : AppCompatActivity() {
         val historyButton = findViewById<ImageButton>(R.id.historyButton)
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
 
+        formulaInput.showSoftInputOnFocus = false
+        formulaInput.isCursorVisible = false
+        formulaInput.setTextIsSelectable(false)
+
         val pages = listOf(
             findViewById<LinearLayout>(R.id.pageCalculator),
             findViewById<LinearLayout>(R.id.pageLength),
             findViewById<LinearLayout>(R.id.pageVolume)
         )
 
+        tabLayout.removeAllTabs()
+        listOf("Calculator", "Length units", "Volume units").forEach { title ->
+            tabLayout.addTab(tabLayout.newTab().setText(title))
+        }
+
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                pages.forEachIndexed { index, view -> view.visibility = if (index == tab.position) android.view.View.VISIBLE else android.view.View.GONE }
+                val selectedIndex = tab.position.coerceIn(0, pages.lastIndex)
+                pages.forEachIndexed { index, view ->
+                    view.visibility = if (index == selectedIndex) android.view.View.VISIBLE else android.view.View.GONE
+                }
             }
             override fun onTabUnselected(tab: TabLayout.Tab) = Unit
             override fun onTabReselected(tab: TabLayout.Tab) = Unit
         })
+
+        tabLayout.getTabAt(0)?.select()
 
         historyButton.setOnClickListener { showHistoryDialog(formulaInput) }
 
@@ -53,12 +67,20 @@ class MainActivity : AppCompatActivity() {
             R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5,
             R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btnDot,
             R.id.btnPlus, R.id.btnMinus, R.id.btnMul, R.id.btnDiv,
-            R.id.btnLParen, R.id.btnRParen, R.id.btnPow, R.id.btnSqrt
+            R.id.btnLParen, R.id.btnRParen, R.id.btnPow, R.id.btnSqrt, R.id.btnFrac
         )
         ids.forEach { id ->
             findViewById<Button>(id).setOnClickListener {
                 val text = (it as Button).text.toString()
-                insertAtCursor(formulaInput, if (text == "√") "sqrt(" else text)
+                val insertion = when (text) {
+                    "√" -> "sqrt("
+                    "×" -> "*"
+                    "÷" -> "/"
+                    "−" -> "-"
+                    "a/b" -> "/"
+                    else -> text
+                }
+                insertAtCursor(formulaInput, insertion)
             }
         }
 
@@ -187,11 +209,6 @@ class MainActivity : AppCompatActivity() {
         if (prev.isLetter()) {
             var start = cursor - 1
             while (start > 0 && text[start - 1].isLetter()) start--
-            var end = cursor
-            if (end < text.length && text[end] == '^') {
-                end++
-                while (end < text.length && text[end].isDigit()) end++
-            }
             editText.text.delete(start, cursor)
             editText.setSelection(start)
         } else {
