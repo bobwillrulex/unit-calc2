@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0C0F16"
     android:orientation="vertical"
-    android:background="#101114"
     android:padding="12dp">
 
     <LinearLayout
@@ -19,10 +19,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:hint="Enter expression (e.g. 12 mm + 11 cm)"
-            android:inputType="text"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="Use keypad to build expression"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:longClickable="false"
+            android:padding="8dp"
             android:textColor="#FFFFFF"
-            android:textColorHint="#777777" />
+            android:textColorHint="#6D7485"
+            android:textIsSelectable="false"
+            android:textSize="26sp" />
 
         <ImageButton
             android:id="@+id/historyButton"
@@ -38,9 +45,11 @@
         android:id="@+id/resultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="#7AF7AE"
-        android:textSize="22sp"
+        android:layout_marginTop="4dp"
+        android:gravity="end"
+        android:minHeight="44dp"
+        android:textColor="#8FE6B1"
+        android:textSize="28sp"
         android:textStyle="bold" />
 
     <Button
@@ -55,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Recent units"
-        android:textColor="#A8ABB5" />
+        android:textColor="#9EA5B6" />
 
     <HorizontalScrollView
         android:id="@+id/recentUnitsScroll"
@@ -75,25 +84,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:tabIndicatorColor="#7AF7AE"
+        app:tabIndicatorColor="#8FE6B1"
+        app:tabIndicatorFullWidth="false"
+        app:tabMode="fixed"
+        app:tabRippleColor="#304458"
         app:tabSelectedTextColor="#FFFFFF"
-        app:tabTextColor="#8E93A6">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Calculator" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Length units" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Volume units" />
-    </com.google.android.material.tabs.TabLayout>
+        app:tabTextColor="#8E93A6" />
 
     <LinearLayout
         android:id="@+id/pageCalculator"
@@ -105,35 +101,38 @@
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="5">
+            android:columnCount="5"
+            android:rowCount="6"
+            android:useDefaultMargins="false">
 
-            <Button android:id="@+id/btn7" android:text="7" style="@style/CalcButton" />
-            <Button android:id="@+id/btn8" android:text="8" style="@style/CalcButton" />
-            <Button android:id="@+id/btn9" android:text="9" style="@style/CalcButton" />
-            <Button android:id="@+id/btnDiv" android:text="/" style="@style/CalcButton" />
-            <Button android:id="@+id/btnDel" android:text="DEL" style="@style/CalcButton" />
+            <Button android:id="@+id/btnAc" style="@style/CalcButtonSecondary" android:text="AC" />
+            <Button android:id="@+id/btnLParen" style="@style/CalcButtonSecondary" android:text="(" />
+            <Button android:id="@+id/btnRParen" style="@style/CalcButtonSecondary" android:text=")" />
+            <Button android:id="@+id/btnFrac" style="@style/CalcButtonSecondary" android:text="a/b" />
+            <Button android:id="@+id/btnDel" style="@style/CalcButtonSecondary" android:text="DEL" />
 
-            <Button android:id="@+id/btn4" android:text="4" style="@style/CalcButton" />
-            <Button android:id="@+id/btn5" android:text="5" style="@style/CalcButton" />
-            <Button android:id="@+id/btn6" android:text="6" style="@style/CalcButton" />
-            <Button android:id="@+id/btnMul" android:text="*" style="@style/CalcButton" />
-            <Button android:id="@+id/btnAc" android:text="AC" style="@style/CalcButton" />
+            <Button android:id="@+id/btnPow" style="@style/CalcButtonSecondary" android:text="^" />
+            <Button android:id="@+id/btnSqrt" style="@style/CalcButtonSecondary" android:text="√" />
+            <Button android:id="@+id/btnAns" style="@style/CalcButtonSecondary" android:text="ANS" />
+            <Button android:id="@+id/btnDiv" style="@style/CalcButtonOperator" android:text="÷" />
+            <Button android:id="@+id/btnMul" style="@style/CalcButtonOperator" android:text="×" />
 
-            <Button android:id="@+id/btn1" android:text="1" style="@style/CalcButton" />
-            <Button android:id="@+id/btn2" android:text="2" style="@style/CalcButton" />
-            <Button android:id="@+id/btn3" android:text="3" style="@style/CalcButton" />
-            <Button android:id="@+id/btnMinus" android:text="-" style="@style/CalcButton" />
-            <Button android:id="@+id/btnSqrt" android:text="√" style="@style/CalcButton" />
+            <Button android:id="@+id/btn7" style="@style/CalcButton" android:text="7" />
+            <Button android:id="@+id/btn8" style="@style/CalcButton" android:text="8" />
+            <Button android:id="@+id/btn9" style="@style/CalcButton" android:text="9" />
+            <Button android:id="@+id/btnMinus" style="@style/CalcButtonOperator" android:text="−" />
+            <Button android:id="@+id/btnPlus" style="@style/CalcButtonOperator" android:text="+" />
 
-            <Button android:id="@+id/btn0" android:text="0" style="@style/CalcButton" />
-            <Button android:id="@+id/btnDot" android:text="." style="@style/CalcButton" />
-            <Button android:id="@+id/btnPow" android:text="^" style="@style/CalcButton" />
-            <Button android:id="@+id/btnPlus" android:text="+" style="@style/CalcButton" />
-            <Button android:id="@+id/btnEq" android:text="=" style="@style/CalcButton" />
+            <Button android:id="@+id/btn4" style="@style/CalcButton" android:text="4" />
+            <Button android:id="@+id/btn5" style="@style/CalcButton" android:text="5" />
+            <Button android:id="@+id/btn6" style="@style/CalcButton" android:text="6" />
+            <Button android:id="@+id/btn1" style="@style/CalcButton" android:text="1" />
+            <Button android:id="@+id/btn2" style="@style/CalcButton" android:text="2" />
 
-            <Button android:id="@+id/btnLParen" android:text="(" style="@style/CalcButton" />
-            <Button android:id="@+id/btnRParen" android:text=")" style="@style/CalcButton" />
-            <Button android:id="@+id/btnAns" android:text="ANS" style="@style/CalcButton" />
+            <Button android:id="@+id/btn3" style="@style/CalcButton" android:text="3" />
+            <Button android:id="@+id/btn0" style="@style/CalcButton" android:text="0" />
+            <Button android:id="@+id/btnDot" style="@style/CalcButton" android:text="." />
+            <Button android:id="@+id/btnEq" style="@style/CalcButtonAccent" android:text="=" />
         </GridLayout>
     </LinearLayout>
 
